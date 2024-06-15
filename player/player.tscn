@@ -1,10 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://h5v6khmkp10v"]
+[gd_scene load_steps=11 format=3 uid="uid://h5v6khmkp10v"]
 
 [ext_resource type="Texture2D" uid="uid://ch367go1uihw2" path="res://art/green ninja.png" id="1_si206"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_y3nnr"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_23qqd"]
-size = Vector2(14, 4)
 
 [sub_resource type="Animation" id="Animation_esiek"]
 length = 0.001
@@ -102,16 +99,18 @@ _data = {
 "walkUp": SubResource("Animation_ouq15")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_23qqd"]
+size = Vector2(6, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q1wba"]
+size = Vector2(15, 15)
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
-y_sort_enabled = true
 script = ExtResource("1_y3nnr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_23qqd")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("1_si206")
 offset = Vector2(0, -8)
 hframes = 4
@@ -121,3 +120,14 @@ vframes = 7
 libraries = {
 "": SubResource("AnimationLibrary_4lsvx")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_23qqd")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+position = Vector2(0.5, -7.5)
+shape = SubResource("RectangleShape2D_q1wba")
