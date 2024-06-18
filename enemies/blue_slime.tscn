@@ -2,11 +2,19 @@
 
 [ext_resource type="Script" path="res://enemies/blue_slime.gd" id="1_4ivep"]
 [ext_resource type="Texture2D" uid="uid://bfn6atfyp7wev" path="res://art/Slime.png" id="1_u2sty"]
-[ext_resource type="Script" path="res://enemies/SlimeVision.gd" id="3_ihm7v"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tqxjp"]
 radius = 5.0
 height = 12.0
+
+[sub_resource type="GDScript" id="GDScript_0nr4k"]
+script/source = "extends Area2D
+
+func _physics_process(delta):
+	var player_in_range = get_overlapping_bodies()
+	if player_in_range.size() > 0:
+		var target = player_in_range.front()
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0d2c3"]
 radius = 42.107
@@ -249,7 +257,7 @@ hframes = 4
 vframes = 4
 
 [node name="SlimeVision" type="Area2D" parent="."]
-script = ExtResource("3_ihm7v")
+script = SubResource("GDScript_0nr4k")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="SlimeVision"]
 visible = false
