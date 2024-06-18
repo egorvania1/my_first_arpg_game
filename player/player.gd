@@ -27,7 +27,7 @@ func handleCollision():
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
-		print_debug(collider.name)
+		#print_debug(collider.name)
 
 func _physics_process(delta):
 	handleInput()
@@ -35,10 +35,14 @@ func _physics_process(delta):
 	handleCollision()
 	updateAnimation()
 
-
-func _on_hurt_box_area_entered(area):
-	if area.name == "HitBox":
-		currentHealth -= 1
-		if currentHealth < 0:
-			currentHealth = maxHealth
-		healthChanged.emit(currentHealth)
+func damage(attack: Attack):
+	currentHealth -= attack.attackDamage
+	if currentHealth < 0:
+		currentHealth = maxHealth
+	healthChanged.emit(currentHealth)
+	knockback(attack.attackPosition, attack.knockbackPower)
+	
+func knockback(enemyVelocity: Vector2, knockbackPower: int):
+	var knockbackDirection = (enemyVelocity - velocity).normalized() * knockbackPower
+	velocity = knockbackDirection
+	move_and_slide()

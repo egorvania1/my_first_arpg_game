@@ -5,6 +5,8 @@ var endPosition
 
 var player
 var state = "WANDER"
+@export var attackDamage = 1
+@export var knockbackPower = 1000
 
 @export var SPEED = 30
 @export var limit = 0.5
@@ -56,3 +58,12 @@ func _on_slime_vision_body_entered(body):
 func _on_slime_vision_body_exited(body):
 	if body == player:
 		state = "WANDER"
+
+func _on_hit_box_body_entered(body):
+	if body.has_method("damage"):
+		var attack = Attack.new()
+		attack.attackDamage = attackDamage
+		attack.knockbackPower = knockbackPower
+		attack.attackPosition = velocity
+		body.damage(attack)
+		

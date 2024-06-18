@@ -270,3 +270,4 @@ libraries = {
 
 [connection signal="body_entered" from="SlimeVision" to="." method="_on_slime_vision_body_entered"]
 [connection signal="body_exited" from="SlimeVision" to="." method="_on_slime_vision_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
